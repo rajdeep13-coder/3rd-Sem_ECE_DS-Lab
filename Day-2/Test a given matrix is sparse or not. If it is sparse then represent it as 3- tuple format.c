@@ -1,45 +1,67 @@
 #include <stdio.h>
 
 int main() {
-    int a[10][10], r, c, i, j, count = 0, k = 1;
+    int matrix[10][10], sparse[100][3];
+    int rows, cols, i, j, count = 0;
 
-    printf("Enter rows and columns: ");
-    scanf("%d %d", &r, &c);
-
-    printf("Enter elements:\n");
-    for (i = 0; i < r; i++)
-        for (j = 0; j < c; j++) {
-            scanf("%d", &a[i][j]);
-            if (a[i][j] == 0)
+    printf("Enter number of rows and columns: ");
+    scanf("%d%d", &rows, &cols);
+    printf("Enter elements of matrix (%d x %d):\n", rows, cols);
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+            if (matrix[i][j] == 0)
                 count++;
         }
+    }
+    if (count > (rows * cols) / 2) {
+        printf("\nMatrix is a Sparse Matrix.\n");
 
-    if (count > (r * c) / 2) {
-        printf("It is a sparse matrix.\n");         //checking
+        // First row of tuple contains: total_rows, total_cols, non_zero_count
+        int k = 1; // Index for sparse tuple
+        sparse[0][0] = rows;
+        sparse[0][1] = cols;
+        sparse[0][2] = (rows * cols) - count;
 
-        int tuple[100][3];                 // 3-tuple format
-        tuple[0][0] = r;
-        tuple[0][1] = c;
-        tuple[0][2] = (r * c) - count;
-
-        for (i = 0; i < r; i++) {
-            for (j = 0; j < c; j++) {
-                if (a[i][j] != 0) {
-                    tuple[k][0] = i;
-                    tuple[k][1] = j;
-                    tuple[k][2] = a[i][j];
+        for (i = 0; i < rows; i++) {
+            for (j = 0; j < cols; j++) {
+                if (matrix[i][j] != 0) {
+                    sparse[k][0] = i;
+                    sparse[k][1] = j;
+                    sparse[k][2] = matrix[i][j];
                     k++;
                 }
             }
         }
 
-        printf("3-Tuple representation:\n");
+        // 3-tuple representation
+        printf("\n3-Tuple Representation:\n");
+        printf("Row Col Value\n");
         for (i = 0; i < k; i++) {
-            printf("%d %d %d\n", tuple[i][0], tuple[i][1], tuple[i][2]);
+            printf("%3d %3d %5d\n", sparse[i][0], sparse[i][1], sparse[i][2]);
         }
+
     } else {
-        printf("It is not a sparse matrix.\n");
+        printf("\nMatrix is NOT a Sparse Matrix.\n");
     }
 
     return 0;
 }
+
+
+
+/*SAMPLE OUTPUT
+Enter number of rows and columns: 3 3
+Enter elements of matrix (3 x 3):
+0 0 3
+0 0 0
+4 0 0
+
+Matrix is a Sparse Matrix.
+
+3-Tuple Representation:
+Row Col Value
+  3   3     2
+  0   2     3
+  2   0     4
+*/
