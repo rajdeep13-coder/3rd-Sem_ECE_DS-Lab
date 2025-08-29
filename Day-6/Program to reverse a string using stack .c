@@ -23,48 +23,4 @@ int main() {
 
 
 
-//M-2
-#include <stdio.h>
-#include <string.h>
 
-#define MAX 100  
-
-char stack[MAX];
-int top = -1;    
-
-// push function
-void push(char c) {
-    if (top == MAX - 1) {
-        printf("Stack is full!\n");
-    } else {
-        stack[++top] = c;
-    }
-}
-
-// pop function
-char pop() {
-    if (top == -1) {
-        printf("Stack is empty!\n");
-        return '\0';
-    } else {
-        return stack[top--];
-    }
-}
-
-int main() {
-    char str[MAX];
-    
-    printf("Enter a string: ");
-    scanf("%s", str);  
-
-    for (int i = 0; i < strlen(str); i++) {
-        push(str[i]);
-    }
-
-    printf("Reversed string: ");
-    while (top != -1) {
-        printf("%c", pop());
-    }
-
-    return 0;
-}
