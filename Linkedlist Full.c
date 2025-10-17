@@ -248,3 +248,83 @@ int main() {
 
     return 0;
 }
+
+
+/*SAMPLE OUTPUT (Write any one)
+
+
+--- LINKED LIST MENU ---
+1. Create List
+2. Display List
+3. Insert at First
+4. Insert at Last
+5. Insert at Position
+6. Delete from First
+7. Delete from Last
+8. Delete from Position
+9. Exit
+Enter choice: 1
+Enter number of nodes: 3
+Enter data for node 1: 10
+Enter data for node 2: 20
+Enter data for node 3: 30
+List created with 3 nodes.
+
+--- LINKED LIST MENU ---
+1. Create List
+2. Display List
+3. Insert at First
+4. Insert at Last
+5. Insert at Position
+6. Delete from First
+7. Delete from Last
+8. Delete from Position
+9. Exit
+Enter choice: 2
+Linked List: 10 -> 20 -> 30 -> NULL
+Total nodes: 3
+
+--- LINKED LIST MENU ---
+Enter choice: 3
+Enter value: 5
+Inserted 5 at first.
+
+--- LINKED LIST MENU ---
+Enter choice: 4
+Enter value: 40
+Inserted 40 at last.
+
+--- LINKED LIST MENU ---
+Enter choice: 5
+Enter value and position: 25 3
+Inserted 25 at position 3.
+
+--- LINKED LIST MENU ---
+Enter choice: 2
+Linked List: 5 -> 10 -> 25 -> 20 -> 30 -> 40 -> NULL
+Total nodes: 6
+
+--- LINKED LIST MENU ---
+Enter choice: 6
+Deleted 5 from first.
+
+--- LINKED LIST MENU ---
+Enter choice: 7
+Deleted 40 from last.
+
+--- LINKED LIST MENU ---
+Enter choice: 8
+Enter position: 3
+Deleted 20 from position 3.
+
+--- LINKED LIST MENU ---
+Enter choice: 2
+Linked List: 10 -> 25 -> 30 -> NULL
+Total nodes: 3
+
+--- LINKED LIST MENU ---
+Enter choice: 9
+Exiting...
+
+
+*/
