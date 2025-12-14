@@ -1,78 +1,129 @@
-//a) at 1st position 
-//b) at last position 
-//c) at any position 
-
 #include <stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 
 struct node {
-    int d;
-    struct node *n;
+    int data;
+    struct node *next;
 };
-struct node *h = NULL;
+struct node *head= NULL;
 
-void beg(int x){
-    struct node *t = malloc(sizeof(struct node));
-    t->d = x;
-    t->n = h;
-    h = t;
+//Insert_at_beginning
+void insb(int value){
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=value;
+    newnode->next=head;
+    head=newnode;
+    printf("\nElement added at beginning: %d", value);
+    return;
 }
 
-void end(int x){
-    struct node *t = malloc(sizeof(struct node));
-    t->d = x;
-    t->n = NULL;
-    if(h==NULL){
-        h=t;return;
-    }
-    struct node *p=h;
-    while(p->n) p=p->n;
-    p->n=t;
-}
-
-void pos(int x,int p){
-    if(p==1){
-        beg(x);return;
-    }
-    struct node *t=malloc(sizeof(struct node)),*q=h;
-    t->d=x;
-    for(int i=1;i<p-1 && q;i++) q=q->n;
-    if(q==NULL){
-        printf("Invalid\n");
-        free(t);
+//Insert_at_end
+void inse(int value){
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=value;
+    newnode->next=NULL;
+    if(head==NULL){ //List is empty
+        head=newnode;
+        printf("\nElement added at end: %d", value);
         return;
     }
-    t->n=q->n;
-    q->n=t;
+    struct node *temp=head;
+    while(temp->next!= NULL){
+        temp=temp->next;
+    }
+    temp->next=newnode;
+    printf("\nElement added at end: %d", value);
 }
 
-void dis(){
-    struct node *p=h;
-    while(p){
-        printf("%d ",p->d);
-        p=p->n;
+//Insert_at_any_position
+void insap(int value, int p){
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=value;
+    if(p==1){
+        newnode->next=head;
+        head=newnode;
+        printf("\nElement added at beginning: %d", value);
+        return;
     }
-    printf("\n");
+    
+    struct node *temp=head;
+    for(int i=1;i<p-1 && temp!=NULL;i++){
+        temp=temp->next;
+    }
+    if(temp==NULL){
+        printf("\nPosition out of range");
+        free(newnode);
+        return;
+    }
+    
+    newnode->next = temp->next;
+    temp->next = newnode;
+
+    printf("Inserted %d at position %d.\n", value, p);
 }
 
-int main(){
-    int c,x,pn;
-    while(1){
-        printf("1.Beg 2.End 3.Pos 4.Display 5.Exit\n");
-        scanf("%d",&c);
-        if(c==5)
-            break;
-        if(c==4)
-            {dis();continue;}
-        printf("Enter data: ");
-            scanf("%d",&x);
-        if(c==1)
-            beg(x);
-        else if(c==2)
-            end(x);
-        else if(c==3)
-            {printf("Enter pos: ");
-            scanf("%d",&pn);pos(x,pn);}
+// ---- Display List ----
+void display() {
+    struct node *temp = head;
+
+    if (temp == NULL) {
+        printf("\nList is empty.\n");
+        return;
     }
+
+    printf("\nLinked List: ");
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    int choice, value, pos;
+
+    while (1) {
+        printf("\n--- MENU ---\n");
+        printf("1. Insert at Beginning\n");
+        printf("2. Insert at End\n");
+        printf("3. Insert at Any Position\n");
+        printf("4. Display List\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insb(value);
+                break;
+
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                inse(value);
+                break;
+
+            case 3:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                printf("Enter position: ");
+                scanf("%d", &pos);
+                insap(value, pos);
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                exit(0);
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
     return 0;
 }
